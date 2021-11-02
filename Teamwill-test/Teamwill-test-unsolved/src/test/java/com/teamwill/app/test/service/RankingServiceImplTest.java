@@ -23,33 +23,19 @@ public class RankingServiceImplTest {
     private RankingService service;
 
     @Test
-    public void getAll() {
+    public void getAllRankings() {
         List<Ranking> all = service.getAll();
         assertThat(all).isNotNull();
-        //assertThat(all).allMatch(r -> r.getRanking() > 40).isNotEmpty();
+        assertThat(all).allMatch(r -> r.getRank() > 40)
+                .isNotEmpty();
     }
-    @Test
-    public void getAllHighestToLowest() {
-        List<Ranking> allHighToLow = service.getAllHighestToLowest();
-        assertThat(allHighToLow).isNotNull();
-        //TODO verificar o assert
-        Comparator<Ranking> comparator = Comparator.comparing(r -> r.getRank());
-        assertThat(allHighToLow).isSortedAccordingTo(comparator.reversed());
-    }
-
 
     @Test
     public void getTop5() {
         List<Ranking> all = service.getTop5();
         assertThat(all).isNotNull();
-        //assertThat(all).element(0).extracting("name").isEqualTo("Janaina");
-        //assertThat(all).element(4).extracting("name").isEqualTo("Monica");
-    }
-
-    @Test
-    public void insert() {
-        Ranking rank = new Ranking().setRank(110).setName("Allan");
-        service.insert(rank);
+        assertThat(all).element(0).extracting("name").isEqualTo("Janaina");
+        assertThat(all).element(4).extracting("name").isEqualTo("Monica");
     }
 
 }
